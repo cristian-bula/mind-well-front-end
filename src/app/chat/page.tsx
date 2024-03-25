@@ -20,7 +20,7 @@ import { Message } from "../types/common";
 
 
 
-const page = () => {
+const Page = () => {
   const auth = useAuth();
   const router = useRouter();
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
@@ -181,4 +181,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

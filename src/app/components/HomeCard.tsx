@@ -3,7 +3,7 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 
 interface HomeCard {
-  image: StaticImageData;
+  image: string;
   text?: string;
   title?: string;
 }

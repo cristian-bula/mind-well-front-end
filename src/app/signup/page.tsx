@@ -24,7 +24,7 @@ interface form {
   password: string;
 }
 
-const page = () => {
+const Page = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const auth = useAuth();
   const {
@@ -181,4 +181,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
