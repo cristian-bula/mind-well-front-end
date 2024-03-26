@@ -100,7 +100,7 @@ const Page = () => {
                 required: "Porfavor llene la vaina",
                 pattern: {
                   message: "Formato inválido",
-                  value: /^[a-zA-Z0-9ñÑ]+@[a-zA-ZñÑ]+\.[a-zA-ZñÑ]{2,3}$/i
+                  value: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
                 },
               })}
               type="email"

@@ -23,7 +23,7 @@ const Page = () => {
   const router = useRouter();
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const [loadingChatBot, setLoadingChatBot] = useState<Boolean>(false);
+  const [loadingChatBot, setLoadingChatBot] = useState<boolean>(false);
   const inputStyles = {
     input: ["text-base", "placeholder:text-lightGray", "px-3"],
     inputWrapper: ["bg-backGroundGray", "", "h-14", "!rounded-xl", "shadow"],
