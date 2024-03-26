@@ -18,7 +18,7 @@ import RegisterSucccess from "../components/RegisterSuccess";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
 
-interface form {
+interface Form {
   name: string;
   email: string;
   password: string;
@@ -41,7 +41,7 @@ const Page = () => {
     reValidateMode: "onChange",
   });
 
-  const onSubmit = async (data: form) => {
+  const onSubmit = async (data: Form) => {
     toast.loading("SignUp...", { id: "signup" });
     try {
       await auth?.signup(data.name, data.email, data.password);
@@ -100,7 +100,7 @@ const Page = () => {
                 required: "Porfavor llene la vaina",
                 pattern: {
                   message: "Formato inválido",
-                  value: /[a-zA-Z0-9ñÑ]+@[a-zA-ZñÑ]+\.[a-zA-ZñÑ]{2,3}/g,
+                  value: /^[a-zA-Z0-9ñÑ]+@[a-zA-ZñÑ]+\.[a-zA-ZñÑ]{2,3}$/i
                 },
               })}
               type="email"

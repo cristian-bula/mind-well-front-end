@@ -4,6 +4,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { checkAuthToken, loginUser, logoutUser, signUpUser } from "../helper/api-communicator";
@@ -74,13 +75,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
   };
 
-  const value = {
+  const value = useMemo(() => ({
     user,
     isLoggedIn,
     login,
     signup,
     logout,
-  };
+  }), [user, isLoggedIn]);
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 

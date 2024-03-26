@@ -19,7 +19,7 @@ import { useAuth } from "../context/AuthContext";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-interface form {
+interface Form {
   email: string;
   password: string;
 }
@@ -40,7 +40,7 @@ const Page = () => {
     mode: "onChange",
     reValidateMode: "onChange",
   });
-  const onSubmit = async (data: form) => {
+  const onSubmit = async (data: Form) => {
     toast.loading("Signing In...", { id: "signing" });
     try {
       await auth?.login(data.email, data.password);
@@ -88,7 +88,7 @@ const Page = () => {
                 required: "Porfavor llene la vaina",
                 pattern: {
                   message: "Formato inválido",
-                  value: /[a-zA-Z0-9ñÑ]+@[a-zA-ZñÑ]+\.[a-zA-ZñÑ]{2,3}/g,
+                  value: /^[a-zA-Z0-9ñÑ]+@[a-zA-ZñÑ]+\.[a-zA-ZñÑ]{2,3}$/i
                 },
               })}
               type="email"

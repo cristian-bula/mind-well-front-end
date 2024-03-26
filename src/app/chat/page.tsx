@@ -18,19 +18,17 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Message } from "../types/common";
 
-
-
 const Page = () => {
   const auth = useAuth();
   const router = useRouter();
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const [loadingChatBot, setLoadingChatBot] = useState(false);
+  const [loadingChatBot, setLoadingChatBot] = useState<Boolean>(false);
   const inputStyles = {
     input: ["text-base", "placeholder:text-lightGray", "px-3"],
     inputWrapper: ["bg-backGroundGray", "", "h-14", "!rounded-xl", "shadow"],
   };
-  interface form {
+  interface Form {
     prompt: string;
   }
   const {
@@ -52,7 +50,7 @@ const Page = () => {
     }
   };
 
-  const onSubmit = async (data: form) => {
+  const onSubmit = async (data: Form) => {
     scrollChatToBottom();
     setLoadingChatBot(true);
     const newMessage: Message = { role: "user", content: data.prompt };
@@ -60,13 +58,11 @@ const Page = () => {
     setValue("prompt", "");
 
     const chatData = await sendChatRequest(data.prompt);
-    if(chatData.chats){
+    if (chatData.chats) {
       setChatMessages([...chatData.chats]);
     }
     setLoadingChatBot(false);
   };
-
-
 
   useLayoutEffect(() => {
     if (auth?.isLoggedIn && auth.user) {
@@ -75,9 +71,9 @@ const Page = () => {
       getUserChats()
         .then((data) => {
           setChatMessages([...data.chats]);
-          if(data.chats.length >= 1){
+          if (data.chats.length >= 1) {
             toast.success("Successfully loaded chats", { id: "loadChats" });
-          }else{
+          } else {
             toast.dismiss();
           }
         })
@@ -92,10 +88,10 @@ const Page = () => {
   }, [chatMessages]);
 
   useEffect(() => {
-      if (!auth?.user) {
-        router.push("/login");
-      }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!auth?.user) {
+      router.push("/login");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);
 
   return (
@@ -106,10 +102,10 @@ const Page = () => {
           <NoChats />
         ) : (
           <div className="layout-padding flex flex-col gap-3">
-            {chatMessages.map((message, index) => {
+            {chatMessages.map((message) => {
               return (
                 <ChatBox
-                  key={index}
+                  key={message.content}
                   content={message.content}
                   role={message.role}
                 />
@@ -152,7 +148,7 @@ const Page = () => {
                 />
               }
               label=" "
-              isInvalid={Boolean(errors.prompt?.message)}
+              isInvalid={errors.prompt?.message as boolean | undefined}
               errorMessage={errors.prompt?.message}
               placeholder="Ask me anything... "
             />
@@ -162,15 +158,15 @@ const Page = () => {
             isIconOnly
             type="submit"
             size="lg"
-            isDisabled={Boolean(loadingChatBot)}
+            isDisabled={loadingChatBot as boolean | undefined}
             className="ml-auto flex !bg-principal rounded-full shadow-md shadow-cyan-500/50"
           >
             <Image
-              src={Boolean(loadingChatBot) ? Spin : Send}
+              src={loadingChatBot ? Spin : Send}
               width={500}
               height={500}
               quality={100}
-              className={`${Boolean(loadingChatBot) ? "animate-spin" : ''} w-8 h-8`}
+              className={`${loadingChatBot ? "animate-spin" : ''} w-8 h-8`}
               alt="Picture of the author"
             />
           </Button>

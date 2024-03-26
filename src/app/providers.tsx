@@ -5,11 +5,14 @@ import { NextUIProvider } from "@nextui-org/react";
 import { AuthProvider } from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
-// axios.defaults.baseURL = "http://localhost:5000/api/v1/";
 axios.defaults.baseURL = "https://mindwellbackend.onrender.com/api/v1/";
 axios.defaults.withCredentials = true;
 
-export function Providers({ children }: { children: React.ReactNode }) {
+interface Props {
+  readonly children: React.ReactNode;
+}
+
+export function Providers({ children }: Props) {
   return (
     <AuthProvider>
       <NextUIProvider>
